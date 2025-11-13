@@ -20,7 +20,7 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('Prompt Manager API')
+    .setTitle('Prompt Genius API')
     .setDescription('API for managing AI prompts with dynamic placeholders')
     .setVersion('1.0')
     .addBearerAuth()

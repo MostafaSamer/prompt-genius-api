@@ -1,4 +1,4 @@
-# Prompt Manager API
+# Prompt Genius API
 
 A NestJS-based web application that lets users create, categorize, and reuse AI prompts with dynamic placeholders (like `{productName}` or `{tone}`), and optionally run them directly using the OpenAI API.
 
@@ -34,7 +34,7 @@ A NestJS-based web application that lets users create, categorize, and reuse AI 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd prompt-manager
+cd prompt-genius
 ```
 
 2. Copy the environment file:
@@ -44,7 +44,7 @@ cp .env.example .env
 
 3. Update `.env` with your configuration:
 ```env
-DATABASE_URL="postgresql://postgres:postgres@postgres:5432/prompt_manager?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@postgres:5432/prompt_genius?schema=public"
 JWT_SECRET="your-super-secret-jwt-key-change-in-production"
 OPENAI_API_KEY="your-openai-api-key-here"
 PORT=3000
@@ -253,7 +253,7 @@ npm run prisma:migrate:deploy
 ## Project Structure
 
 ```
-prompt-manager/
+prompt-genius/
 ├── src/
 │   ├── auth/           # Authentication module
 │   ├── users/          # Users module

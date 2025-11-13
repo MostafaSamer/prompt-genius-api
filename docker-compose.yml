@@ -3,11 +3,11 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: prompt-manager-db
+    container_name: prompt-genius-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: prompt_manager
+      POSTGRES_DB: prompt_genius
     ports:
       - "5432:5432"
     volumes:
@@ -18,15 +18,15 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - prompt-manager-network
+      - prompt-genius-network
 
-  app:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: prompt-manager-app
+    container_name: prompt-genius-api
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/prompt_manager?schema=public
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/prompt_genius?schema=public
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
       PORT: 3000
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
@@ -36,7 +36,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      - prompt-manager-network
+      - prompt-genius-network
     command: >
       sh -c "
         npx prisma migrate deploy &&
@@ -45,10 +45,10 @@ services:
 
   prisma-studio:
     image: node:20-alpine
-    container_name: prompt-manager-prisma-studio
+    container_name: prompt-genius-prisma-studio
     working_dir: /app
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/prompt_manager?schema=public
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/prompt_genius?schema=public
     ports:
       - "5555:5555"
     volumes:
@@ -59,7 +59,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      - prompt-manager-network
+      - prompt-genius-network
     command: >
       sh -c "
         npm install prisma@^6.19.0 --no-save &&
@@ -71,5 +71,5 @@ volumes:
   postgres_data:
 
 networks:
-  prompt-manager-network:
+  prompt-genius-network:
     driver: bridge
