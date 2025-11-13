@@ -67,10 +67,7 @@ jobs:
             { print }
             ' docker-compose.yml > docker-compose.yml.tmp
             mv docker-compose.yml.tmp docker-compose.yml
-            
-            # Pull latest code (for any config changes)
-            git pull origin master || true
-            
+                        
             # Restart containers with new image
             docker compose down
             docker compose up -d
