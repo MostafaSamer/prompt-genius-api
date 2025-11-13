@@ -23,7 +23,7 @@ jobs:
             if [ ! -d "${{ '/var/www/prompt-genius-api' }}" ]; then
               echo "Project directory not found. Cloning repository..."
               mkdir -p ${{ '/var/www/prompt-genius-api' }}
-              git clone git@github.com:MostafaSamer/prompt-genius-api.git ${{ '/var/www/prompt-genius-api' }}
+              git clone https://github.com/MostafaSamer/prompt-genius-api.git ${{ '/var/www/prompt-genius-api' }}
             fi
             
             cd ${{ '/var/www/prompt-genius-api' }}
