@@ -19,19 +19,26 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ '/var/www' }}
+            # Check if project directory exists, clone if not
+            if [ ! -d "${{ '/var/www/prompt-genius-api' }}" ]; then
+              echo "Project directory not found. Cloning repository..."
+              mkdir -p ${{ '/var/www/prompt-genius-api' }}
+              git clone git@github.com:MostafaSamer/prompt-genius-api.git ${{ '/var/www/prompt-genius-api' }}
+            fi
+            
+            cd ${{ '/var/www/prompt-genius-api' }}
             
             # Pull latest code
-            git pull origin main || git pull origin master
+            git pull origin master
             
             # Rebuild and restart containers
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
             
             # Show running containers
-            docker-compose ps
+            docker compose ps
             
             # Show logs for verification
             echo "Deployment completed. Checking service status..."
-            docker-compose logs --tail=50 api
+            docker compose logs --tail=50 api
 
