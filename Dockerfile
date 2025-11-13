@@ -7,7 +7,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # Install dependencies
-RUN npm i
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 # Copy source code
 COPY . .
@@ -28,7 +28,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # Install production dependencies only
-RUN npm i --omit=dev
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev
 
 # Regenerate Prisma Client for production (to ensure ES module compatibility)
 RUN npx prisma generate

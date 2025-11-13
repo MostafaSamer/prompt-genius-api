@@ -28,10 +28,3 @@ jobs:
             docker compose down
             docker compose up -d --build
 
-            # Show running containers
-            docker compose ps
-            
-            # Show logs for verification
-            echo "Deployment completed. Checking service status..."
-            docker compose logs --tail=50 api
-
